@@ -1,0 +1,26 @@
+{
+  "name": "language-ssa",
+  "version": "0.1.0",
+  "description": "Syntax highlighting for ASS/SSA subtitle files in Atom editor.",
+  "keywords": [
+    "ASS",
+    "SSA",
+    "subtitle",
+    "syntax",
+    "highlight",
+    "Atom"
+  ],
+  "engines": {
+    "atom": "*",
+    "node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weizhenye/language-ssa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/weizhenye/language-ssa/issues"
+  },
+  "author": "weizhenye",
+  "license": "MIT"
+}

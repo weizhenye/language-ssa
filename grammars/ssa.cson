@@ -1,0 +1,950 @@
+scopeName: 'source.ssa'
+fileTypes: ['ass', 'ssa']
+name: 'ASS/SSA'
+patterns: [
+  {
+    name: 'comment.line.character.semicolon.ssa'
+    match: '^\\s*;.*'
+  }
+  {
+    name: 'meta.section.ssa'
+    match: '^\\s*(\\[)(.*?)(\\])\\s*(.*)'
+    captures:
+      1:
+        name: 'punctuation.definition.section.begin.ssa'
+      2:
+        name: 'entity.name.section.ssa'
+      3:
+        name: 'punctuation.definition.section.end.ssa'
+      4:
+        name: 'invalid.illegal.ssa'
+  }
+  {
+    include: '#lines'
+  }
+]
+repository:
+  lines:
+    name: 'meta.lines.ssa'
+    patterns: [
+      {
+        include: '#lineCollisions'
+      }
+      {
+        include: '#linePlayRes'
+      }
+      {
+        include: '#lineTimer'
+      }
+      {
+        include: '#lineWrapStyle'
+      }
+      {
+        include: '#lineScaledBorderAndShadow'
+      }
+      {
+        include: '#lineFormat'
+      }
+      {
+        include: '#lineStyle'
+      }
+      {
+        include: '#lineDialogue'
+      }
+      {
+        include: '#lineComment'
+      }
+      {
+        include: '#lineOthers'
+      }
+    ]
+  lineCollisions:
+    name: 'meta.lines.Collisions.ssa'
+    match: '(?i)^\\s*(Collisions)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.Collisions.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'support.constant.Collisions.ssa'
+            match: '(?i)^(Normal|Reverse)$'
+          }
+          {
+            name: 'invalid.illegal.ssa'
+            match: '.+'
+          }
+        ]
+  linePlayRes:
+    name: 'meta.lines.PlayRes.ssa'
+    match: '(?i)^\\s*(PlayRes[XY])\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.PlayRes.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'constant.numeric.PlayRes.ssa'
+            match: '^\\d+$'
+          }
+          {
+            name: 'invalid.illegal.ssa'
+            match: '.+'
+          }
+        ]
+  lineTimer:
+    name: 'meta.lines.Timer.ssa'
+    match: '(?i)^\\s*(Timer)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.Timer.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'constant.numeric.Timer.ssa'
+            match: '^\\d+(\\.\\d+)?$'
+          }
+          {
+            name: 'invalid.illegal.ssa'
+            match: '.+'
+          }
+        ]
+  lineWrapStyle:
+    name: 'meta.lines.WrapStyle.ssa'
+    match: '(?i)^\\s*(WrapStyle)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.WrapStyle.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'constant.numeric.WrapStyle.ssa'
+            match: '^[0-3]$'
+          }
+          {
+            name: 'invalid.illegal.ssa'
+            match: '.+'
+          }
+        ]
+  lineScaledBorderAndShadow:
+    name: 'meta.lines.ScaledBorderAndShadow.ssa'
+    match: '(?i)^\\s*(ScaledBorderAndShadow)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.ScaledBorderAndShadow.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'support.constant.ScaledBorderAndShadow.ssa'
+            match: '(?i)^(Yes|No)$'
+          }
+          {
+            name: 'invalid.illegal.ssa'
+            match: '.+'
+          }
+        ]
+  lineFormat:
+    name: 'meta.lines.Format.ssa'
+    match: '(?i)^\\s*(Format)\\s*(:)\\s*(([^,]*\\s*,\\s*)*[^,]*)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.Format.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'variable.other.ssa'
+            match: '\\w+'
+          }
+          {
+            name: 'punctuation.separator.comma.ssa'
+            match: ','
+          }
+        ]
+  lineStyle:
+    name: 'meta.lines.Style.ssa'
+    match: '(?i)^\\s*(Style)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.Style.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            name: 'meta.Style.ASS.ssa'
+            match: '''
+              (?x)
+              ^([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*$
+              '''
+            captures:
+              1:
+                name: 'entity.name.function.Name.ssa'
+              2:
+                name: 'constant.other.Fontname.ssa'
+              3:
+                name: 'constant.numeric.Fontsize.ssa'
+              4:
+                name: 'string.unquoted.PrimaryColour.ssa'
+              5:
+                name: 'string.unquoted.SecondaryColour.ssa'
+              6:
+                name: 'string.unquoted.OutlineColour.ssa'
+              7:
+                name: 'string.unquoted.BackColour.ssa'
+              8:
+                name: 'constant.numeric.Bold.ssa'
+              9:
+                name: 'constant.numeric.Italic.ssa'
+              10:
+                name: 'constant.numeric.Underline.ssa'
+              11:
+                name: 'constant.numeric.StrikeOut.ssa'
+              12:
+                name: 'constant.numeric.ScaleX.ssa'
+              13:
+                name: 'constant.numeric.ScaleY.ssa'
+              14:
+                name: 'constant.numeric.Spacing.ssa'
+              15:
+                name: 'constant.numeric.Angle.ssa'
+              16:
+                name: 'constant.numeric.BorderStyle.ssa'
+              17:
+                name: 'constant.numeric.Outline.ssa'
+              18:
+                name: 'constant.numeric.Shadow.ssa'
+              19:
+                name: 'constant.numeric.Alignment.ssa'
+              20:
+                name: 'constant.numeric.MarginL.ssa'
+              21:
+                name: 'constant.numeric.MarginR.ssa'
+              22:
+                name: 'constant.numeric.MarginV.ssa'
+              23:
+                name: 'constant.numeric.Encoding.ssa'
+          }
+          {
+            name: 'meta.Style.SSA.ssa'
+            match: '''
+              (?x)
+              ^([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*$
+              '''
+            captures:
+              1:
+                name: 'entity.name.function.Name.ssa'
+              2:
+                name: 'constant.other.Fontname.ssa'
+              3:
+                name: 'constant.numeric.Fontsize.ssa'
+              4:
+                name: 'string.unquoted.PrimaryColour.ssa'
+              5:
+                name: 'string.unquoted.SecondaryColour.ssa'
+              6:
+                name: 'string.unquoted.OutlineColour.ssa'
+              7:
+                name: 'string.unquoted.BackColour.ssa'
+              8:
+                name: 'constant.numeric.Bold.ssa'
+              9:
+                name: 'constant.numeric.Italic.ssa'
+              10:
+                name: 'constant.numeric.BorderStyle.ssa'
+              11:
+                name: 'constant.numeric.Outline.ssa'
+              12:
+                name: 'constant.numeric.Shadow.ssa'
+              13:
+                name: 'constant.numeric.Alignment.ssa'
+              14:
+                name: 'constant.numeric.MarginL.ssa'
+              15:
+                name: 'constant.numeric.MarginR.ssa'
+              16:
+                name: 'constant.numeric.MarginV.ssa'
+              17:
+                name: 'constant.numeric.AlphaLevel.ssa'
+              18:
+                name: 'constant.numeric.Encoding.ssa'
+          }
+          {
+            name: 'punctuation.separator.comma.ssa'
+            match: ','
+          }
+        ]
+  lineDialogue:
+    name: 'meta.lines.Dialogue.ssa'
+    match: '(?i)^\\s*(Dialogue)\\s*(:)\\s*(.*?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.Dialogue.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        patterns: [
+          {
+            match: '''
+              (?x)
+              ^([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              ([^,]*)\\s*,\\s*
+              (.*)$
+              '''
+            captures:
+              1:
+                name: 'meta.Layer.ssa'
+                patterns: [
+                  {
+                    match: '(?i)(marked)\\s*(=)\\s*(\\d)'
+                    captures:
+                      1:
+                        name: 'variable.other.ssa'
+                      2:
+                        name: 'keyword.operator.assignment.ssa'
+                      3:
+                        name: 'constant.numeric.Marked.ssa'
+                  }
+                  {
+                    name: 'constant.numeric.Layer.ssa'
+                    match: '\\d'
+                  }
+                ]
+              2:
+                name: 'meta.Start.ssa'
+                patterns: [
+                  {
+                    include: '#time'
+                  }
+                ]
+              3:
+                name: 'meta.End.ssa'
+                patterns: [
+                  {
+                    include: '#time'
+                  }
+                ]
+              4:
+                name: 'entity.name.function.Style.ssa'
+              5:
+                name: 'string.unquoted.Name.ssa'
+              6:
+                name: 'constant.numeric.MarginL.ssa'
+              7:
+                name: 'constant.numeric.MarginR.ssa'
+              8:
+                name: 'constant.numeric.MarginV.ssa'
+              9:
+                name: 'meta.Effect.ssa'
+                patterns: [
+                  {
+                    include: '#effects'
+                  }
+                ]
+              10:
+                name: 'meta.Text.ssa'
+                patterns: [
+                  {
+                    include: '#tags'
+                  }
+                  {
+                    include: '#break'
+                  }
+                  {
+                    name: 'string.unquoted.Text.ssa'
+                    match: '.+?(?=\\\\[hnN]|{|$)'
+                  }
+                ]
+          }
+          {
+            name: 'punctuation.separator.comma.ssa'
+            match: ','
+          }
+        ]
+  lineComment:
+    name: 'comment.line.character.Comment.ssa'
+    match: '(?i)^\\s*Comment\\s*:'
+  lineOthers:
+    name: 'meta.lines.other.ssa'
+    match: '^\\s*(.+?)\\s*(:)\\s*(.+?)\\s*$'
+    captures:
+      1:
+        name: 'keyword.other.definition.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        name: 'meta.property.ssa'
+        patterns: [
+          {
+            include: '#number'
+          }
+          {
+            name: 'string.unquoted.ssa'
+            match: '.+'
+          }
+        ]
+  number:
+    name: 'constant.numeric.ssa'
+    match: '-?(?=[1-9]|0(?!\\d))\\d+(\\.\\d+)?'
+  break:
+    name: 'constant.character.escape.break.ssa'
+    match: '\\\\[nNh]'
+  time:
+    name: 'meta.time.ssa'
+    match: '(\\d)(:)(\\d\\d)(:)(\\d\\d\\.\\d\\d)'
+    captures:
+      1:
+        name: 'constant.numeric.hour.ssa'
+      2:
+        name: 'punctuation.separator.colon.ssa'
+      3:
+        name: 'constant.numeric.minute.ssa'
+      4:
+        name: 'punctuation.separator.colon.ssa'
+      5:
+        name: 'constant.numeric.second.ssa'
+  effects:
+    name: 'meta.effects.ssa'
+    patterns: [
+      {
+        name: 'meta.effects.scroll.ssa'
+        match: '''
+          (?ix)
+          ^(scroll\\sup|scroll\\sdown)
+          \\s*;\\s*(\\d+)
+          \\s*;\\s*(\\d+)
+          \\s*;\\s*(\\d+)
+          \\s*;?\\s*(\\d+)?$
+          '''
+        captures:
+          1:
+            name: 'support.function.Scroll.ssa'
+          2:
+            name: 'constant.numeric.y1.ssa'
+          3:
+            name: 'constant.numeric.y2.ssa'
+          4:
+            name: 'constant.numeric.delay.ssa'
+          5:
+            name: 'constant.numeric.fadeawayheight.ssa'
+      }
+      {
+        name: 'meta.effects.banner.ssa'
+        match: '(?i)^(banner)\\s*;\\s*(\\d+)\\s*;?\\s*(\\d+)?\\s*;?\\s*(\\d+)?$'
+        captures:
+          1:
+            name: 'support.function.Banner.ssa'
+          2:
+            name: 'constant.numeric.delay.ssa'
+          3:
+            name: 'constant.numeric.lefttoright.ssa'
+          4:
+            name: 'constant.numeric.fadeawaywidth.ssa'
+      }
+      {
+        name: 'punctuation.separator.semicolon.ssa'
+        match: ';'
+      }
+    ]
+  tags:
+    name: 'meta.tags.ssa'
+    match: '({)(.*?)(})'
+    captures:
+      1:
+        name: 'punctuation.definition.tags.begin.ssa'
+      2:
+        patterns: [
+          {
+            include: '#tag_t'
+          }
+          {
+            include: '#tag_b'
+          }
+          {
+            include: '#tag_i'
+          }
+          {
+            include: '#tag_u'
+          }
+          {
+            include: '#tag_s'
+          }
+          {
+            include: '#tag_bord'
+          }
+          {
+            include: '#tag_shad'
+          }
+          {
+            include: '#tag_be'
+          }
+          {
+            include: '#tag_blur'
+          }
+          {
+            include: '#tag_fn'
+          }
+          {
+            include: '#tag_fs'
+          }
+          {
+            include: '#tag_fsc'
+          }
+          {
+            include: '#tag_fsp'
+          }
+          {
+            include: '#tag_fr'
+          }
+          {
+            include: '#tag_fa'
+          }
+          {
+            include: '#tag_fe'
+          }
+          {
+            include: '#tag__c'
+          }
+          {
+            include: '#tag_alpha'
+          }
+          {
+            include: '#tag_a'
+          }
+          {
+            include: '#tag_an'
+          }
+          {
+            include: '#tag_k'
+          }
+          {
+            include: '#tag_q'
+          }
+          {
+            include: '#tag_r'
+          }
+          {
+            include: '#tag__function'
+          }
+          {
+            include: '#tag_clip'
+          }
+          {
+            include: '#tag_p'
+          }
+          {
+            include: '#tag_pbo'
+          }
+        ]
+      3:
+        name: 'punctuation.definition.tags.end.ssa'
+  tag_t:
+    name: 'meta.tags.t.ssa'
+    match: '(\\\\)(t)(\\()(.*?(\\\\i?clip\\(.*?\\))*.*)??(\\))'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.t.ssa'
+      3:
+        name: 'punctuation.definition.tags.bracket.begin.ssa'
+      4:
+        patterns: [
+          {
+            include: '#tag_bord'
+          }
+          {
+            include: '#tag_shad'
+          }
+          {
+            include: '#tag_be'
+          }
+          {
+            include: '#tag_blur'
+          }
+          {
+            include: '#tag_fs'
+          }
+          {
+            include: '#tag_fsc'
+          }
+          {
+            include: '#tag_fsp'
+          }
+          {
+            include: '#tag_fr'
+          }
+          {
+            include: '#tag_fa'
+          }
+          {
+            include: '#tag__c'
+          }
+          {
+            include: '#tag_alpha'
+          }
+          {
+            include: '#tag_clip'
+          }
+          {
+            include: '#number'
+          }
+          {
+            name: 'punctuation.definition.tags.comma.ssa'
+            match: ','
+          }
+        ]
+      6:
+        name: 'punctuation.definition.tags.bracket.end.ssa'
+  tag_b:
+    name: 'meta.tags.b.ssa'
+    match: '(\\\\)(b)(\\d)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.b.ssa'
+      3:
+        name: 'constant.numeric.b.ssa'
+  tag_i:
+    name: 'meta.tags.i.ssa'
+    match: '(\\\\)(i)(\\d)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.i.ssa'
+      3:
+        name: 'constant.numeric.i.ssa'
+  tag_u:
+    name: 'meta.tags.u.ssa'
+    match: '(\\\\)(u)(\\d)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.u.ssa'
+      3:
+        name: 'constant.numeric.u.ssa'
+  tag_s:
+    name: 'meta.tags.s.ssa'
+    match: '(\\\\)(s)(\\d)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.s.ssa'
+      3:
+        name: 'constant.numeric.s.ssa'
+  tag_bord:
+    name: 'meta.tags.bord.ssa'
+    match: '(\\\\)([xy]?bord)(\\d+\\.\\d+|\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.bord.ssa'
+      3:
+        name: 'constant.numeric.bord.ssa'
+  tag_shad:
+    name: 'meta.tags.shad.ssa'
+    match: '(\\\\)([xy]?shad)(-?\\d+\\.\\d+|-?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.shad.ssa'
+      3:
+        name: 'constant.numeric.shad.ssa'
+  tag_be:
+    name: 'meta.tags.be.ssa'
+    match: '(\\\\)(be)(\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.be.ssa'
+      3:
+        name: 'constant.numeric.be.ssa'
+  tag_blur:
+    name: 'meta.tags.blur.ssa'
+    match: '(\\\\)(blur)(\\d+\\.\\d+|\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.blur.ssa'
+      3:
+        name: 'constant.numeric.blur.ssa'
+  tag_fn:
+    name: 'meta.tags.fn.ssa'
+    match: '(\\\\)(fn)(.+?(?=\\\\|$))'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fn.ssa'
+      3:
+        name: 'constant.other.fn.ssa'
+  tag_fs:
+    name: 'meta.tags.fs.ssa'
+    match: '(\\\\)(fs)([\\+-]?\\d+\\.\\d+|[\\+-]?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fs.ssa'
+      3:
+        name: 'constant.numeric.fs.ssa'
+  tag_fsc:
+    name: 'meta.tags.fsc.ssa'
+    match: '(\\\\)(fsc[xy])(\\d+\\.\\d+|\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fsc.ssa'
+      3:
+        name: 'constant.numeric.fsc.ssa'
+  tag_fsp:
+    name: 'meta.tags.fsp.ssa'
+    match: '(\\\\)(fsp)(-?\\d+\\.\\d+|-?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fsp.ssa'
+      3:
+        name: 'constant.numeric.fsp.ssa'
+  tag_fr:
+    name: 'meta.tags.fr.ssa'
+    match: '(\\\\)(fr[xyz]?)(-?\\d+\\.\\d+|-?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fr.ssa'
+      3:
+        name: 'constant.numeric.fr.ssa'
+  tag_fa:
+    name: 'meta.tags.fa.ssa'
+    match: '(\\\\)(fa[xy])(-?\\d+\\.\\d+|-?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fa.ssa'
+      3:
+        name: 'constant.numeric.fa.ssa'
+  tag_fe:
+    name: 'meta.tags.fe.ssa'
+    match: '(\\\\)(fe)(\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.fe.ssa'
+      3:
+        name: 'constant.numeric.fe.ssa'
+  tag__c:
+    name: 'meta.tags._c.ssa'
+    match: '(\\\\)([1-4]?c)(&?[Hh]?[0-9a-fA-F]{1,6}&?)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag._c.ssa'
+      3:
+        name: 'constant.numeric._c.ssa'
+  tag_alpha:
+    name: 'meta.tags.alpha.ssa'
+    match: '(\\\\)([1-4]a|alpha)(&?[Hh]?[0-9a-fA-F]{2}&?)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.alpha.ssa'
+      3:
+        name: 'constant.numeric.alpha.ssa'
+  tag_a:
+    name: 'meta.tags.a.ssa'
+    match: '(\\\\)(a)(11|10|9|[5-7]|[1-3])'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.a.ssa'
+      3:
+        name: 'constant.numeric.a.ssa'
+  tag_an:
+    name: 'meta.tags.an.ssa'
+    match: '(\\\\)(an)([1-9])'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.an.ssa'
+      3:
+        name: 'constant.numeric.an.ssa'
+  tag_k:
+    name: 'meta.tags.k.ssa'
+    match: '(\\\\)(k|K|kf|ko|kt)(\\d+\\.\\d+|\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.k.ssa'
+      3:
+        name: 'constant.numeric.k.ssa'
+  tag_q:
+    name: 'meta.tags.q.ssa'
+    match: '(\\\\)(q)([0-3])'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.q.ssa'
+      3:
+        name: 'constant.numeric.q.ssa'
+  tag_r:
+    name: 'meta.tags.r.ssa'
+    match: '(\\\\)(r)(.*(?=\\\\|$))'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.r.ssa'
+      3:
+        name: 'constant.other.r.ssa'
+  tag__function:
+    name: 'meta.tags._function.ssa'
+    match: '(\\\\)(move|pos|org|fad|fade)(\\()(.*?)(\\))'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag._function.ssa'
+      3:
+        name: 'punctuation.definition.tags.bracket.begin.ssa'
+      4:
+        patterns: [
+          {
+            include: '#number'
+          }
+          {
+            name: 'punctuation.definition.tags.comma.ssa'
+            match: ','
+          }
+        ]
+      5:
+        name: 'punctuation.definition.tags.bracket.end.ssa'
+  tag_clip:
+    name: 'meta.tags.clip.ssa'
+    match: '(\\\\)(i?clip)(\\()(.*?)(\\))'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.clip.ssa'
+      3:
+        name: 'punctuation.definition.tags.bracket.begin.ssa'
+      4:
+        patterns: [
+          {
+            name: ''
+            match: '^\\s*((\\d+)\\s*(,))?\\s*([^,]+?)\\s*$'
+            captures:
+              2:
+                name: 'constant.numeric.scale.ssa'
+              3:
+                name: 'punctuation.separator.comma.ssa'
+              4:
+                name: 'markup.bold.commands.ssa'
+          }
+          {
+            include: '#number'
+          }
+          {
+            name: 'punctuation.definition.tags.comma.ssa'
+            match: ','
+          }
+        ]
+      5:
+        name: 'punctuation.definition.tags.bracket.end.ssa'
+  tag_p:
+    name: 'meta.tags.p.ssa'
+    match: '(\\\\)(p)(\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.p.ssa'
+      3:
+        name: 'constant.numeric.p.ssa'
+  tag_pbo:
+    name: 'meta.tags.pbo.ssa'
+    match: '(\\\\)(pbo)(-?\\d+\\.\\d+|-?\\d+)'
+    captures:
+      1:
+        name: 'punctuation.separator.tags.backslash.ssa'
+      2:
+        name: 'entity.name.tag.pbo.ssa'
+      3:
+        name: 'constant.numeric.pbo.ssa'
