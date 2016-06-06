@@ -1,6 +1,7 @@
 scopeName: 'source.ssa'
 fileTypes: ['ass', 'ssa']
 name: 'ASS/SSA'
+firstLineMatch: '\\[Script\\sInfo\\]'
 patterns: [
   {
     name: 'comment.line.character.semicolon.ssa'
@@ -420,7 +421,7 @@ repository:
         ]
   lineComment:
     name: 'comment.line.character.Comment.ssa'
-    match: '(?i)^\\s*Comment\\s*:'
+    match: '(?i)^\\s*Comment\\s*:.*'
   lineOthers:
     name: 'meta.lines.other.ssa'
     match: '^\\s*(.+?)\\s*(:)\\s*(.+?)\\s*$'
